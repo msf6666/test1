@@ -5,20 +5,13 @@
 		<meta charset="UTF-8">
 		<title>vue组件猜数字游戏</title>
 		<script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
-
 	</head>
-	<body>
+	<body style="text-align: center;">
 		<div id="container">
 			<p>{{msg}}</p>
 			<my-game></my-game>
 		</div>
-		<div >
-			<input type = "text" v-model.number = "myInput" / >
-			<br>
-			<p> {{result}} </p> 
-		</div>
 		<script>
-			
 			Vue.component("my-game", {
 				data: function() {
 					return {
@@ -27,29 +20,34 @@
 						result: ""
 					}
 				},
+				template: `
+    <div>
+     <input type="text" v-model.number="myInput"/>
+     <br>
+     <p>{{result}}</p>
+    </div>
+   `,
 				beforeMount: function() {
-			
-				var num = Math.floor(Math.random() * 100);
-				console.log(num);
-				this.randomNum = num;
-			},
-	
-			watch: {
-				myInput: function() {
-					if (this.myInput == this.randomNum) {
-						this.result = "恭喜：猜对了";
-					} else if (this.myInput > this.randomNum) {
-						this.result = "啊哦！猜大了";
-					} else {
-						this.result = "啊哦！猜小了";
+					var num = Math.floor(Math.random() * 100);
+					console.log(num);
+					this.randomNum = num;
+				},
+				watch: {
+					myInput: function() {
+						if (this.myInput == this.randomNum) {
+							this.result = "恭喜：猜对了";
+						} else if (this.myInput > this.randomNum) {
+							this.result = "啊哦！猜大了";
+						} else {
+							this.result = "啊哦！猜小了";
+						}
 					}
 				}
-			}
 			})
 			new Vue({
 				el: "#container",
 				data: {
-					msg: "Hello VueJs"
+					msg: "猜一猜"
 				}
 			})
 		</script>
