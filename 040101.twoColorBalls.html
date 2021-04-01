@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title> 双色球号码随机生成器</title>
+		<script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+	</head>
+	<body>
+		<div id="app" style="align-content: center;">
+			<button v-on:click="testRandom()">生成彩票号码<button>
+
+					<p>红球：{{redNumArr}}</p>
+					<p>蓝球：{{buleNumArr}}</p>
+		</div>
+
+		<script>
+			new Vue({
+				el: '#app',
+				data: {
+
+					redNumMax: 33,
+					redNumSize: 6,
+					redNumArr: [],
+					buleNumArr: ''
+
+				},
+				// 测试彩票号码生成
+				methods: {
+					testRandom: function() {
+
+						console.log("12346");
+						
+						
+						// 生成红区号码
+						this.redNumArr.splice(0, this.redNumArr.length);
+						while (this.redNumArr.length < this.redNumSize) {
+							let num =  Math.floor(Math.random() * 36) + 1;
+							// 仅当生成的号码与原有号码不重复时，才加入到数组中
+							if (this.redNumArr.indexOf(num) === -1) {
+								this.redNumArr.push(num);
+							}
+						}
+						console.log("12346789");
+						// 使用冒泡排序
+						for (let i = 0; i < this.redNumArr.length; i++) {
+							for (let j = 1; j < this.redNumArr.length - i; j++) {
+								if (this.redNumArr[i] > this.redNumArr[i + j]) {
+									let temp = this.redNumArr[i];
+									this.redNumArr[i] = this.redNumArr[i + j];
+									this.redNumArr[i + j] = temp;
+								}
+							}
+						}
+						// 生成蓝色区号码
+						this.buleNumArr=Math.floor(Math.random() * 36) + 1;
+						console.log(this.redNumArr);
+					}
+				}
+
+
+				
+
+			})
+		</script>
+	</body>
+</html>
